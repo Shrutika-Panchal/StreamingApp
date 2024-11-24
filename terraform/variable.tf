@@ -1,5 +1,5 @@
 variable "project" {
-  description = "travelmem"
+  description = "streaming-app"
   type = string
 }
 
@@ -7,14 +7,11 @@ variable "project" {
 variable "aws_region" {
   description = "this will define the aws region"
   type = string
-  default = "ap-northeast-2"
+  default = "ap-south-1"
+
 }
 
-variable "aws_ami" {
-  description = "this will tell aws ami for ubuntu"
-  type = string
-  default = "ami-05d2438ca66594916"
-}
+
 
 # Public Subnet CIDRs
 variable "public_subnet_cidrs" {
@@ -33,10 +30,11 @@ variable "private_subnet_cidrs" {
 variable "az" {
   description = "List of az"
   type = list(string)
-  default = [ "ap-northeast-2a", "ap-northeast-2b" ]
+
+  default = [ "ap-south-1a", "ap-south-1b" ]
 }
 
-variable "instance_type" {
-  description = "EC2 Instance Type"
-  default     = "t3.micro"
-}
+# variable "instance_type" {
+#   description = "EC2 Instance Type"
+#   default     = "t3.micro"
+# }

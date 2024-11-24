@@ -1,0 +1,7 @@
+aws_secret.py
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+kubeconfig
+.Jenkinsfile3

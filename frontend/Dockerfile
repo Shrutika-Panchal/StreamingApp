@@ -1,32 +1,29 @@
-# Use Node.js 20 base image
-FROM node:20
+# Use Node.js 20 Alpine base image
+FROM node:20-alpine3.18
 
 # Set working directory
 WORKDIR /app
 
-<<<<<<< HEAD
-# Copy package.json and package-lock.json first to install dependencies separately
-# This helps with caching dependencies when only code changes, not the dependencies
-COPY package*.json ./
+# # Install system dependencies required for Node.js
+# RUN apk update && apk add --no-cache bash curl
 
-# Install dependencies
-=======
-# Copy project files to container
+# Copy only necessary files to leverage Docker caching
+COPY package.json .
+
+# Configure npm retry settings and install dependencies
+RUN npm set fetch-retries 5 && \
+    npm set fetch-retry-mintimeout 20000 && \
+    npm set fetch-retry-maxtimeout 120000 && \
+    npm install && \
+    npm install -g pm2
+
+# Copy the rest of the application files
 COPY . .
 
 # Install dependencies and pm2
->>>>>>> 72f78fa2b4d8016b557a5fa1642b3ddf748752d7
 RUN npm install
-
-# Install pm2 globally
 RUN npm install -g pm2
 
-<<<<<<< HEAD
-# Copy the rest of the project files
-COPY . .
-
-=======
->>>>>>> 72f78fa2b4d8016b557a5fa1642b3ddf748752d7
 # Copy and set permissions for start script
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
@@ -34,13 +31,8 @@ RUN chmod +x /app/start.sh
 # Expose the application port
 EXPOSE 3000
 
-<<<<<<< HEAD
-# Start the application with pm2 using the start.sh script
-CMD ["/app/start.sh"]
-=======
 # Start the application
 CMD ["/app/start.sh"]
 
 
 RUN npm install -g pm2
->>>>>>> 72f78fa2b4d8016b557a5fa1642b3ddf748752d7
