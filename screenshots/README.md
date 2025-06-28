@@ -50,6 +50,9 @@ Run Terraform commands to provision resources:
 # Initialize Terraform
 terraform init
 
+# Preview changes before applying them
+terraform plan
+
 # Apply Terraform configuration
 terraform apply
 
